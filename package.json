@@ -1,0 +1,19 @@
+{
+  "name": "@qt-kaneko/assertype",
+  "version": "1.0.0",
+  "bin": "dist/main.js",
+  "dependencies": {
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.12.0",
+    "esbuild": "^0.24.2"
+  },
+  "type": "module",
+  "license": "AGPL-3.0-only",
+  "description": "TypeScript type guard generator.",
+  "keywords": ["typescript", "typeguard", "generator", "codegen", "type", "guard"],
+  "homepage": "https://github.com/qt-kaneko/assertype",
+  "author": "Kaneko Qt",
+  "repository": "qt-kaneko/assertype"
+}

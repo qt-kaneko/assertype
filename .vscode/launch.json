@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch",
+      "preLaunchTask": "Build & Verify",
+      "program": "dist/main.js",
+      "args": ["dist/workspace/tsconfig.json"],
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "sourceMaps": true
+    }
+  ]
+}
