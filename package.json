@@ -1,6 +1,6 @@
 {
   "name": "@qt-kaneko/assertype",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "bin": "dist/main.js",
   "dependencies": {
     "typescript": "^5.7.3"

@@ -53,6 +53,11 @@ export function* createCheck(value: ts.Expression, type: ts.Type, typeChecker: t
     return yield* createUnionCheck(value, type, typeChecker, printer);
   }
 
+  if (type.isIntersection())
+  {
+    return yield* createIntersectionCheck(value, type, typeChecker, printer);
+  }
+
   if (type.flags & ts.TypeFlags.Null)
   {
     return yield ts.factory.createStrictEquality(
@@ -197,6 +202,20 @@ function* createUnionCheck(value: ts.Expression, type: ts.UnionType, typeChecker
                     .map(checks => checks.reduce(ts.factory.createLogicalAnd));
   if (checks.length === 0) return;
   let check = checks.reduce(ts.factory.createLogicalOr);
+
+  yield check;
+}
+
+function* createIntersectionCheck(value: ts.Expression, type: ts.IntersectionType, typeChecker: ts.TypeChecker, printer: ts.Printer)
+{
+  let types = type.types;
+
+  let checks = types.map(type => createCheck(value, type, typeChecker, printer))
+                    .map(checks => checks.toArray())
+                    .filter(checks => checks.length > 0)
+                    .map(checks => checks.reduce(ts.factory.createLogicalAnd));
+  if (checks.length === 0) return;
+  let check = checks.reduce(ts.factory.createLogicalAnd);
 
   yield check;
 }
