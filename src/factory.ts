@@ -114,3 +114,23 @@ export function createParameterDeclaration({
     initializer
   );
 }
+
+export function createBindingElement({
+  dotDotDotToken,
+  propertyName,
+  name,
+  initializer
+}: {
+  dotDotDotToken?: ts.DotDotDotToken,
+  propertyName?: string | ts.PropertyName,
+  name: string | ts.BindingName,
+  initializer?: ts.Expression
+})
+{
+  return ts.factory.createBindingElement(
+    dotDotDotToken,
+    propertyName,
+    name,
+    initializer
+  );
+}

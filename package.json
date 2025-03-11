@@ -1,7 +1,9 @@
 {
   "name": "@qt-kaneko/assertype",
-  "version": "1.1.0",
-  "bin": "dist/main.js",
+  "version": "1.2.0",
+  "bin": {
+    "assertype": "dist/main.js"
+  },
   "dependencies": {
     "typescript": "^5.7.3"
   },
@@ -15,5 +17,7 @@
   "keywords": ["typescript", "typeguard", "generator", "codegen", "type", "guard"],
   "homepage": "https://github.com/qt-kaneko/assertype",
   "author": "Kaneko Qt",
-  "repository": "qt-kaneko/assertype"
+  "repository": {
+    "url": "git+https://github.com/qt-kaneko/assertype.git"
+  }
 }

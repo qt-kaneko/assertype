@@ -8,5 +8,6 @@ await esbuild.build({
   ],
   platform: `node`,
   format: `esm`,
-  external: [`typescript`]
+  external: [`typescript`],
+  sourcemap: true
 });
