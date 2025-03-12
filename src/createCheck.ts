@@ -293,12 +293,17 @@ function* createTemplateLiteralCheck(value: ts.Expression, type: ts.TemplateLite
   for (let textI = 0; textI < texts.length; ++textI)
   {
     let text = texts[textI];
+
+    // Escape RegExp special characters
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/escape
+    text = text.replace(/[$^\\.*+?()[\]{}|/]/g, `\\$&`);
+
     regexpText += text;
 
     if (textI < types.length)
     {
       let type = types[textI];
-      regexpText += `(` + typeToRegExp(type, typeChecker) + `)`;
+      regexpText += typeToRegExp(type, typeChecker);
     }
   }
   regexpText += `$/`;
@@ -312,14 +317,9 @@ function* createTemplateLiteralCheck(value: ts.Expression, type: ts.TemplateLite
 }
 function typeToRegExp(type: ts.Type, typeChecker: ts.TypeChecker): string
 {
-  if (type.flags === ts.TypeFlags.Boolean)
+  if (type.flags === ts.TypeFlags.BigInt)
   {
-    return `true|false`;
-  }
-
-  if (type.flags === ts.TypeFlags.Number)
-  {
-    return `[-+]?\\d+`;
+    return `-?\\d+`;
   }
 
   if (type.flags === ts.TypeFlags.String)
@@ -327,5 +327,5 @@ function typeToRegExp(type: ts.Type, typeChecker: ts.TypeChecker): string
     return `.*`;
   }
 
-  throw new Error(`Type '${typeChecker.typeToString(type)}' with flags '${ts.TypeFlags[type.flags]}' is not supported.`);
+  throw new Error(`Type '${typeChecker.typeToString(type)}' in template literal, with flags '${ts.TypeFlags[type.flags]}' is not supported.`);
 }
